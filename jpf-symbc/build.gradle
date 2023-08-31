@@ -7,12 +7,13 @@ def getCurrentVersion() {
 
 version = currentVersion
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
 
 repositories {
     mavenCentral()
-    jcenter()
     mavenLocal()
 }
 
@@ -71,34 +72,34 @@ task compile {
 }
 
 task createJpfClassesJar(type: Jar) {
-    archiveName = "jpf-symbc-classes.jar"
-    destinationDir = file("${buildDir}")
+    archiveFileName = "jpf-symbc-classes.jar"
+    destinationDirectory = file("${buildDir}")
 
     group = "SPF Jars"
-    description = "Creates the ${archiveName} file."
+    description = "Creates the ${archiveFileName} file."
 
     dependsOn compile
     dependsOn copyResources
 
-    from sourceSets.main.java.outputDir
-    from sourceSets.annotations.java.outputDir
-    from sourceSets.classes.java.outputDir
+    from sourceSets.main.java.destinationDirectory
+    from sourceSets.annotations.java.destinationDirectory
+    from sourceSets.classes.java.destinationDirectory
 }
 
 task createJpfJar(type: Jar) {
-    archiveName = "jpf-symbc.jar"
-    destinationDir = file("${buildDir}")
+    archiveFileName = "jpf-symbc.jar"
+    destinationDirectory = file("${buildDir}")
 
     group = "SPF Jars"
-    description = "Creates the ${archiveName} file."
+    description = "Creates the ${archiveFileName} file."
 
     dependsOn compile
     dependsOn copyResources
 
-    from sourceSets.main.java.outputDir
-    from sourceSets.peers.java.outputDir
-    from sourceSets.annotations.java.outputDir
-    from sourceSets.classes.java.outputDir
+    from sourceSets.main.java.destinationDirectory
+    from sourceSets.peers.java.destinationDirectory
+    from sourceSets.annotations.java.destinationDirectory
+    from sourceSets.classes.java.destinationDirectory
 
     manifest {
         attributes "Implementation-Title": "Symbolic Pathfinder system"
@@ -107,16 +108,16 @@ task createJpfJar(type: Jar) {
 }
 
 task createAnnotationsJar(type: Jar) {
-    archiveName = "jpf-symbc-annotations.jar"
-    destinationDir = file("${buildDir}")
+    archiveFileName = "jpf-symbc-annotations.jar"
+    destinationDirectory = file("${buildDir}")
 
     group = "SPF Jars"
-    description = "Creates the ${archiveName} file."
+    description = "Creates the ${archiveFileName} file."
 
     dependsOn compile
     dependsOn copyResources
 
-    from sourceSets.annotations.java.outputDir
+    from sourceSets.annotations.java.destinationDirectory
 }
 
 task buildJars {
